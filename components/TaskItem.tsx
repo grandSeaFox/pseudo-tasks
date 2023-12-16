@@ -10,17 +10,16 @@ type TaskItemProps = {
 const TaskItem: React.FC<TaskItemProps> = ({ task, onComplete }) => {
     return (
         <div className={styles.taskItem}>
-
-            <label htmlFor={`task-${task.id}`} className={task.completed ? styles.completed : ''}>
-                <input
-                    id={`task-${task.id}`}
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => onComplete(task.id)}
-                    className={styles.checkbox}
-                />
+            <input
+                id={`task-${task.id}`}
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => onComplete(task.id)}
+                className={styles.checkbox}
+            />
+            <p className={task.completed ? styles.completed : ''}>
                 {task.title}
-            </label>
+            </p>
         </div>
     );
 };

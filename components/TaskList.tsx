@@ -26,6 +26,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks }) => {
     };
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, taskId: string) => {
+        e.currentTarget.classList.add(styles.dragStart);
         e.dataTransfer.setData("text/plain", taskId);
     };
 
