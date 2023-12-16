@@ -48,7 +48,6 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks }) => {
     };
 
     const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-        // Remove 'dragOver' class when the dragged item leaves the category element
         e.currentTarget.classList.remove(styles.dragOver);
     };
 
