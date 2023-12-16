@@ -2,7 +2,10 @@
 
 ![img.png](img.png)
 
-<iframe src="https://giphy.com/embed/Ap9iShtkPJpQfYaDAF" width="295" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/Ap9iShtkPJpQfYaDAF">via GIPHY</a></p>
+
+https://github.com/grandSeaFox/pseudo-tasks/assets/42142035/a8d711cb-5a38-4638-9969-17129ff84b09
+
+
 
 ## Deploy on Vercel
 
