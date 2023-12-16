@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Task } from '../types'; // Assuming you have a types file where Task type is defined
+import type { Task } from '../types/types'; // Assuming you have a types file where Task type is defined
 import styles from '../styles/TaskItem.module.scss'; // Assuming you have some CSS module for styling
 
 type TaskItemProps = {

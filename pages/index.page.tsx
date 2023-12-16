@@ -2,7 +2,7 @@ import styles from '../styles/ui/Container.module.scss';
 import { useState } from 'react';
 import type { NextPage } from 'next';
 import TaskList from '../components/TaskList';
-import type { Task } from '../types';
+import type { Task } from '../types/types';
 import Container from "../components/ui/Container";
 
 const Home: NextPage = () => {

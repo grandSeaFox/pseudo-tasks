@@ -11,7 +11,7 @@ const Container = ({ title, children }: Props) => {
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <title>{title}</title>
-                <meta name="description" content="Totaldime" />
+                <meta name="description" content="PseudoTasks" />
                 <link rel="icon" type="image/png" href="/favicon.ico"></link>
             </Head>
            {children}
