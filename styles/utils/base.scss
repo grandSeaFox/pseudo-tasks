@@ -1,0 +1,71 @@
+// Base
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background: none;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: var(--html-font-size);
+  line-height: var(--html-line-height);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  color: var(--bs-body-color);
+  background-color: var(--body-bg-color);
+  font-family: var(--base-font-family);
+  font-size: var(--font-size);
+  overflow-y: auto;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+
+  &.transparent {
+    background: transparent;
+  }
+}
+
+header {
+  position: absolute;
+  height: var(--header-height);
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: var(--back-dark-color);
+}
+
+footer {
+  position: absolute;
+  height: var(--footer-height);
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  background: var(--back-dark-color);
+}
+
+a {
+  color: var(--link-color);
+  outline: none;
+  text-decoration: none;
+
+  &:focus,
+  &:hover,
+  &:active,
+  &.active {
+    color: var(--link-dark-color);
+    text-decoration: underline;
+  }
+
+  &:visited {
+    color: var(--link-light-color);
+  }
+}

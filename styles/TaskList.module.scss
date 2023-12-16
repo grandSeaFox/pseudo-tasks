@@ -1,0 +1,13 @@
+.taskList {
+  .category {
+    padding-bottom: 2rem;
+    transition: background-color 0.3s ease;
+    &.dragOver {
+      background-color: #f0f0f0; // Some subtle color to indicate a potential drop target
+    }
+  }
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+}

@@ -1,0 +1,125 @@
+//
+// Color system
+//
+
+// Font family
+
+// General
+
+// Border Radius
+
+// Buttons
+
+// Forms
+
+
+// Navs
+
+
+// Navbar
+
+// Sidebar
+
+// Responsive
+$size-xsmall: 480px;
+$size-small: 600px;
+$size: 840px;
+$size-large: 960px;
+$size-xlarge: 1280px;
+
+// CSS Variables
+[data-bs-theme=dark] {
+
+}
+
+[data-bs-theme=light] {
+
+}
+
+
+:root {
+  // side nav
+
+  // Core RGB
+
+  // Other RGB
+
+  // Brand Colors
+
+  // Core Colors
+
+  // Gradient
+
+  // Other colors
+
+  // Sizes
+  --unit-auto: auto;
+  --unit-o: 0.05rem;
+  --unit-h: 0.1rem;
+  --unit-0: 0;
+  --unit-1: 0.2rem;
+  --unit-2: 0.4rem;
+  --unit-3: 0.6rem;
+  --unit-4: 0.8rem;
+  --unit-5: 1rem;
+  --unit-6: 1.2rem;
+  --unit-7: 1.4rem;
+  --unit-8: 1.6rem;
+  --unit-9: 1.8rem;
+  --unit-10: 2rem;
+  --unit-12: 2.4rem;
+  --unit-14: 3rem;
+  --unit-16: 3.2rem;
+  --unit-20: 5rem;
+  --spacing-small: var(--unit-1);
+  --spacing: var(--unit-2);
+  --spacing-large: var(--unit-4);
+  --html-font-size: 16px;
+  --html-line-height: 1.5;
+  --icon-size: 1.625;
+  --font-size: 1rem;
+  --font-size-xsmall: 0.6rem;
+  --font-size-small: 0.7rem;
+  --font-size-large: 0.9rem;
+  --font-size-xlarge: 1rem;
+  --font-size-xxlarge: 1.1rem;
+  --line-height: 1.2rem;
+  --border-width: 1px;
+  --border-width-lg: var(--unit-h);
+  --border-radius: 0.25rem;
+  --header-height: calc(var(--font-size) + var(--unit-10));
+  --footer-height: calc(var(--font-size) + var(--unit-8));
+  --control-width-xsmall: #{$size-xsmall - 300px};
+  --control-width-small: #{$size-small - 50px};
+  --control-width: #{$size-large - 200px};
+  --control-width-large: #{$size-large};
+  --control-width-xlarge: #{$size-xlarge};
+  // Fonts
+  --base-font-family: "Andika";
+  --headline-font-family: "Andika";
+  // Index
+  --zindex-0: 1;
+  --zindex-1: 100;
+  --zindex-2: 200;
+  --zindex-3: 300;
+  --zindex-4: 400; // header
+  --zindex-5: 500; // popup
+  --zindex-6: 600; //
+  --zindex-9: 900; // toasts
+  // Shadows
+  --text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+  --text-shadow-1: 0px 0px 4px rgba(0, 0, 0, 0.175);
+  --text-shadow-2: 0px 0px 5px rgba(0, 0, 0, 0.225);
+  --text-shadow-3: 0px 0px 5px rgba(0, 0, 0, 0.25);
+  --text-shadow-4: 0px 0px 6px rgba(0, 0, 0, 0.275);
+  --text-shadow-5: 0px 0px 6px rgba(0, 0, 0, 0.3);
+  --box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+  --box-shadow-1: rgba(0, 0, 0, 0.12) 0px 0px 6px 1px, rgba(0, 0, 0, 0.12) 0px 0px 2px 0px;
+  --box-shadow-2: rgba(0, 0, 0, 0.14) 0px 0px 7px 2px, rgba(0, 0, 0, 0.14) 0px 0px 3px 0px;
+  --box-shadow-3: rgba(0, 0, 0, 0.16) 0px 0px 8px 3px, rgba(0, 0, 0, 0.16) 0px 0px 4px 0px;
+  --box-shadow-4: rgba(0, 0, 0, 0.18) 0px 0px 9px 4px, rgba(0, 0, 0, 0.18) 0px 0px 5px 0px;
+  --box-shadow-5: rgba(0, 0, 0, 0.2) 0px 0px 10px 5px, rgba(0, 0, 0, 0.2) 0px 0px 6px 0px;
+  --transitions-duration: 0.2s;
+  --transitions-prop: var(--transitions-duration) ease-in-out;
+  --nav-width: 2.5rem;
+}
