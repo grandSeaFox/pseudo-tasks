@@ -1,14 +1,14 @@
 import React from 'react';
 import TaskItem from './TaskItem';
 import type { TaskCategories } from '../types/types';
-import styles from '../styles/TaskList.module.scss';
 
 type TaskListProps = {
     tasks: TaskCategories;
     setTasks: (tasks: TaskCategories) => void;
+    onTaskClick: (taskId: string) => void;
 };
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks, onTaskClick }) => {
 
     const handleComplete = (taskId: string) => {
         const updatedTasks = { ...tasks };
@@ -26,13 +26,14 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks }) => {
     };
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, taskId: string) => {
-        e.currentTarget.classList.add(styles.dragStart);
         e.dataTransfer.setData("text/plain", taskId);
+        e.dataTransfer.effectAllowed = 'copyMove'
     };
+
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>, category: keyof TaskCategories) => {
         e.preventDefault();
-        e.currentTarget.classList.remove(styles.dragOver);
+        e.currentTarget.classList.remove("dragOver");
         const taskId = e.dataTransfer.getData("text");
         const taskToMove = Object.values(tasks)
             .flat()
@@ -49,17 +50,17 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks }) => {
     };
 
     const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-        e.currentTarget.classList.remove(styles.dragOver);
+        e.currentTarget.classList.remove("dragOver");
     };
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        e.currentTarget.classList.add(styles.dragOver);
+        e.currentTarget.classList.add("dragOver");
     };
 
     const renderCategorySection = (category: keyof TaskCategories, title: string) => (
         <div
-            className={styles.category}
+            className={"category"}
             onDrop={e => handleDrop(e, category)}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
@@ -70,16 +71,16 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks }) => {
                     key={task.id}
                     draggable
                     onDragStart={e => handleDragStart(e, task.id)}
-                    className={styles.taskItem}
+                    className={"taskItem"}
                 >
-                    <TaskItem task={task} onComplete={handleComplete} />
+                    <TaskItem task={task} onComplete={handleComplete} onClick={() => onTaskClick(task.id)}/>
                 </div>
             ))}
         </div>
     );
 
     return (
-        <div className={styles.taskList}>
+        <div className={"taskList"}>
             {renderCategorySection('today', 'Today')}
             {renderCategorySection('tomorrow', 'Tomorrow')}
             {renderCategorySection('upcoming', 'Upcoming')}

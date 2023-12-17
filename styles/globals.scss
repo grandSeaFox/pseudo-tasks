@@ -1,6 +1,19 @@
-@import 'utils/normalize'; // or any other CSS reset
+@import 'utils/normalize';
 @import "utils/base";
+
+
 @import "utils/variables";
+/* UI */
+@import "ui/Container";
+
+/* Components */
+@import "components/AddTask";
+@import "components/TaskDrawer";
+@import "components/TaskItem";
+@import "components/TaskList";
+
+
+
 
 body {
   background: #f7f7f7;

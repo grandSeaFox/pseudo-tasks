@@ -1,0 +1,29 @@
+.addTask {
+  z-index: 5;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-top: 1px solid #e0e0e0;
+
+  input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 17px;
+    flex-grow: 1;
+  }
+
+  button {
+    padding: 1rem;
+    background-color: #bebebe;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 0;
+    transition: background-color 0.1s ease-in;
+
+    &:hover {
+      background-color: #9a9a9a;
+    }
+  }
+}

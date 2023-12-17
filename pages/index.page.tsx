@@ -1,9 +1,10 @@
-import styles from '../styles/ui/Container.module.scss';
-import { useState } from 'react';
+import {useMemo, useState} from 'react';
 import type { NextPage } from 'next';
 import TaskList from '../components/TaskList';
 import type { Task } from '../types/types';
 import Container from "../components/ui/Container";
+import AddTask from "../components/AddTask";
+import TaskDrawer from "../components/TaskDrawer";
 
 const Home: NextPage = () => {
     const [tasks, setTasks] = useState<{
@@ -24,42 +25,55 @@ const Home: NextPage = () => {
         ],
         toAssign: [],
     });
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
+
+    const selectedTask = useMemo(() => {
+        if (!selectedTaskId) return null;
+        return (
+            tasks.today.concat(tasks.tomorrow, tasks.upcoming, tasks.toAssign)
+                .find(task => task.id === selectedTaskId) || null
+        );
+    }, [selectedTaskId, tasks]);
+    const openDrawer = (taskId: string) => {
+        setSelectedTaskId(taskId);
+        setDrawerOpen(true);
+    };
+
+    const closeDrawer = () => {
+        setDrawerOpen(false);
+    };
 
     const addTask = (title: string) => {
+        if (!title.trim()) return;
+
         const newTask = {
             id: Date.now().toString(),
-            title,
+            title: title.trim(),
             completed: false
         };
+
         setTasks(prevTasks => ({
             ...prevTasks,
             toAssign: [...prevTasks.toAssign, newTask]
         }));
     };
 
-    const handleComplete = (taskId: string) => {
-        const newTasks = {
-            ...tasks,
-            today: tasks.today.map(task =>
-                task.id === taskId ? { ...task, completed: !task.completed } : task
-            ),
-            tomorrow: tasks.tomorrow.map(task =>
-                task.id === taskId ? { ...task, completed: !task.completed } : task
-            ),
-            upcoming: tasks.upcoming.map(task =>
-                task.id === taskId ? { ...task, completed: !task.completed } : task
-            ),
-        };
-        setTasks(newTasks);
-    };
-
     return (
-        <div className={styles.mainLayoutContainer}>
+        <div className="mainLayoutContainer">
             <Container>
                 <div style={{display: "flex", justifyContent: "center"}}>
                     <h1>All Tasks</h1>
                 </div>
-                <TaskList tasks={tasks} setTasks={setTasks} />
+                <div className="taskListAndAddTaskContainer">
+                    <TaskList tasks={tasks} setTasks={setTasks} onTaskClick={openDrawer} />
+                    <TaskDrawer
+                        task={selectedTask}
+                        isOpen={drawerOpen}
+                        onClose={closeDrawer}
+                    />
+                </div>
+                <AddTask onAddTask={addTask} />
             </Container>
         </div>
     );

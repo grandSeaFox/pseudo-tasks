@@ -1,0 +1,29 @@
+.taskList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: var(--unit-4);
+  padding-right: var(--unit-4);
+
+  .category {
+    width: 100%;
+    min-height: 7rem;
+    padding-bottom: 2rem;
+    transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out;
+    border: 2px dashed #fff;
+
+    &.dragOver {
+      border-radius: 2%;
+      border: 2px dashed #e6e6e6;
+      background-color: #f8f8f8;
+    }
+  }
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+}
+.dragStart {
+  cursor: grabbing !important;
+}

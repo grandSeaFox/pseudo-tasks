@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import styles from '../../styles/ui/Container.module.scss';
 
 type Props = {
     children?: React.ReactElement | React.ReactElement[];
@@ -7,7 +6,7 @@ type Props = {
 };
 const Container = ({ title, children }: Props) => {
     return (
-        <div className={styles.container}>
+        <div className="container">
             <Head>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <title>{title}</title>

@@ -1,9 +1,9 @@
 .container {
+  display: flex;
+  flex-direction: column;
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--unit-4);
-  padding-right: var(--unit-4);
-  width: 570px;
+  max-width: 570px;
   height: 100vh;
   background-color: #fff;
 }
@@ -11,4 +11,10 @@
   width: 100%;
   padding-left: var(--unit-4);
   padding-right: var(--unit-4);
+}
+.taskListAndAddTaskContainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
 }

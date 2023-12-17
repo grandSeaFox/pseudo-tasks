@@ -1,23 +1,23 @@
 import React from 'react';
-import type { Task } from '../types/types'; // Assuming you have a types file where Task type is defined
-import styles from '../styles/TaskItem.module.scss'; // Assuming you have some CSS module for styling
+import type { Task } from '../types/types';
 
 type TaskItemProps = {
     task: Task;
-    onComplete: (taskId: string) => void; // Handler for when a task's checkbox is clicked
+    onComplete: (taskId: string) => void;
+    onClick: (taskId: string) => void;
 };
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, onComplete }) => {
+const TaskItem: React.FC<TaskItemProps> = ({ task, onComplete, onClick  }) => {
     return (
-        <div className={styles.taskItem}>
+        <div className="taskItem" onClick={() => onClick(task.id)}>
             <input
                 id={`task-${task.id}`}
                 type="checkbox"
                 checked={task.completed}
                 onChange={() => onComplete(task.id)}
-                className={styles.checkbox}
+                className={"checkbox"}
             />
-            <p className={task.completed ? styles.completed : ''}>
+            <p className={task.completed ? "completed" : ''}>
                 {task.title}
             </p>
         </div>
