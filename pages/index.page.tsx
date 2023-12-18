@@ -5,6 +5,7 @@ import type { Task } from '../types/types';
 import Container from "../components/ui/Container";
 import AddTask from "../components/AddTask";
 import TaskDrawer from "../components/TaskDrawer";
+import {objectKeys} from "../utils";
 
 const Home: NextPage = () => {
     const [tasks, setTasks] = useState<{
@@ -58,6 +59,18 @@ const Home: NextPage = () => {
             toAssign: [...prevTasks.toAssign, newTask]
         }));
     };
+    const deleteTask = (taskId: string) => {
+        setTasks(prevTasks => {
+            const newTasks = { ...prevTasks };
+
+
+           objectKeys(newTasks).forEach((key) => {
+                newTasks[key as keyof typeof newTasks] = newTasks[key as keyof typeof newTasks].filter(task => task.id !== taskId);
+            });
+
+            return newTasks;
+        });
+    };
 
     return (
         <div className="mainLayoutContainer">
@@ -66,7 +79,12 @@ const Home: NextPage = () => {
                     <h1>All Tasks</h1>
                 </div>
                 <div className="taskListAndAddTaskContainer">
-                    <TaskList tasks={tasks} setTasks={setTasks} onTaskClick={openDrawer} />
+                    <TaskList
+                        tasks={tasks}
+                        setTasks={setTasks}
+                        onTaskClick={openDrawer}
+                        onTaskDelete={deleteTask}
+                     />
                     <TaskDrawer
                         task={selectedTask}
                         isOpen={drawerOpen}

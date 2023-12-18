@@ -1,8 +1,24 @@
 .taskItem {
+  width: 100%;
   display: flex;
   align-items: center;
-  margin-left: 0.15rem;
-  margin-bottom: 0.5rem;
+  margin: 0 0.5rem 0 0.15rem;
+
+  button {
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+    margin-left: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    i > svg > path {
+      fill: #888;
+      &:hover {
+        fill: #000;
+      }
+    }
+  }
+
   p {
     font-size: 18px;
     color: #888;
@@ -13,6 +29,9 @@
   }
   &:hover {
     cursor: grab;
+    button {
+      opacity: 1;
+    }
   }
 
 

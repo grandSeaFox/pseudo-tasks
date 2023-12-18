@@ -1,13 +1,16 @@
 import React from 'react';
 import type { Task } from '../types/types';
+import {SVGComponent} from "./ui/SVG";
 
 type TaskItemProps = {
     task: Task;
     onComplete: (taskId: string) => void;
     onClick: (taskId: string) => void;
+    onDelete: (taskId: string) => void;
 };
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, onComplete, onClick  }) => {
+const TaskItem: React.FC<TaskItemProps> = ({ task, onComplete, onClick, onDelete  }) => {
+
     return (
         <div className="taskItem" onClick={() => onClick(task.id)}>
             <input
@@ -20,6 +23,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onComplete, onClick  }) => {
             <p className={task.completed ? "completed" : ''}>
                 {task.title}
             </p>
+            <button onClick={() => onDelete(task.id)}><SVGComponent icon={'trash'}/></button>
         </div>
     );
 };

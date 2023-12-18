@@ -38,3 +38,22 @@ body {
 .drawerOpen {
   transform: translateX(0);
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 2px 0 4px #d2d2d2;
+  border-radius: 2px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #c8c8c8;
+  border-radius: 30px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: darkgrey;
+}

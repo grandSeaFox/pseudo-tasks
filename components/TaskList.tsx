@@ -6,9 +6,10 @@ type TaskListProps = {
     tasks: TaskCategories;
     setTasks: (tasks: TaskCategories) => void;
     onTaskClick: (taskId: string) => void;
+    onTaskDelete : (taskId: string) => void;
 };
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks, onTaskClick }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks, onTaskClick, onTaskDelete }) => {
 
     const handleComplete = (taskId: string) => {
         const updatedTasks = { ...tasks };
@@ -73,7 +74,12 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks, onTaskClick }) => 
                     onDragStart={e => handleDragStart(e, task.id)}
                     className={"taskItem"}
                 >
-                    <TaskItem task={task} onComplete={handleComplete} onClick={() => onTaskClick(task.id)}/>
+                    <TaskItem
+                        task={task}
+                        onClick={() => onTaskClick(task.id)}
+                        onDelete={() => onTaskDelete(task.id)}
+                        onComplete={handleComplete}
+                    />
                 </div>
             ))}
         </div>
