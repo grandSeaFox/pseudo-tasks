@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import type { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import type { Task } from '../../types/types';
+import type { Task } from '../../types';
 
 const TaskDetailPage: NextPage = () => {
     const router = useRouter();

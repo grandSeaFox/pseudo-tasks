@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Task } from '../types/types';
+import type { Task } from '../types';
 import classnames from "classnames";
 
 type TaskDrawerProps = {

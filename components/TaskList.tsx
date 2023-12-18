@@ -1,29 +1,24 @@
 import React from 'react';
 import TaskItem from './TaskItem';
-import type { TaskCategories } from '../types/types';
+import type {Task, TaskCategories} from '../types';
 
 type TaskListProps = {
     tasks: TaskCategories;
-    setTasks: (tasks: TaskCategories) => void;
     onTaskClick: (taskId: string) => void;
+    onUpdateTask: (task: Task, newCategory? : keyof TaskCategories) => void;
     onTaskDelete : (taskId: string) => void;
 };
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks, onTaskClick, onTaskDelete }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, onUpdateTask, onTaskClick, onTaskDelete }) => {
 
     const handleComplete = (taskId: string) => {
-        const updatedTasks = { ...tasks };
+        const allTasks = tasks.today.concat(tasks.tomorrow, tasks.upcoming, tasks.toAssign);
+        const taskToComplete = allTasks.find(task => task.id === taskId);
 
-        (Object.keys(updatedTasks) as Array<keyof TaskCategories>).forEach(category => {
-            updatedTasks[category] = updatedTasks[category].map(task => {
-                if (task.id === taskId) {
-                    return { ...task, completed: !task.completed };
-                }
-                return task;
-            });
-        });
-
-        setTasks(updatedTasks);
+        if (taskToComplete) {
+            const updatedTask = { ...taskToComplete, completed: !taskToComplete.completed };
+            onUpdateTask(updatedTask);
+        }
     };
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, taskId: string) => {
@@ -32,21 +27,17 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks, onTaskClick, onTas
     };
 
 
-    const handleDrop = (e: React.DragEvent<HTMLDivElement>, category: keyof TaskCategories) => {
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>, newCategory: keyof TaskCategories) => {
         e.preventDefault();
         e.currentTarget.classList.remove("dragOver");
         const taskId = e.dataTransfer.getData("text");
+
         const taskToMove = Object.values(tasks)
             .flat()
             .find(task => task.id === taskId);
 
         if (taskToMove) {
-            const newTasks = { ...tasks };
-            Object.keys(newTasks).forEach(key => {
-                newTasks[key as keyof TaskCategories] = newTasks[key as keyof TaskCategories].filter(task => task.id !== taskId);
-            });
-            newTasks[category] = [...newTasks[category], taskToMove];
-            setTasks(newTasks);
+            onUpdateTask({ ...taskToMove }, newCategory);
         }
     };
 
