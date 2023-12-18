@@ -1,0 +1,21 @@
+.navigation {
+  position: relative;
+  width: 570px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    position: absolute;
+    right: 0;
+    margin-right: 6px;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 20%;
+    background-color: #bebebe;
+    &:hover {
+      background-color: #9a9a9a;
+    }
+  }
+
+}

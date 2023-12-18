@@ -49,7 +49,7 @@ export const SVGComponent: React.FC<SVGComponentProps> = ({ icon, color, strokeW
     );
 
     return (
-        <i className={classNames(className, 'd-flex align-items-center justify-content-center')} style={{ pointerEvents: 'none' }}>
+        <i style={{ pointerEvents: 'none', display: "flex", alignItems: "center", justifyContent: "center" }}>
             {modifiedSvg}
         </i>
     );

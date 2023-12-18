@@ -5,6 +5,7 @@ import Container from "../components/ui/Container";
 import AddTask from "../components/AddTask";
 import TaskDrawer from "../components/TaskDrawer";
 import {useTaskManager} from "../hooks/useTaskManager";
+import Navigation from "../components/ui/Navigation";
 
 const Home: NextPage = () => {
     const { tasks, addTask, updateTask, deleteTask } = useTaskManager();
@@ -36,9 +37,7 @@ const Home: NextPage = () => {
         <div className="mainLayoutContainer">
             <Container>
                 {!isClient && <div>Loading...</div> || <>
-                    <div style={{display: "flex", justifyContent: "center"}}>
-                        <h1>All Tasks</h1>
-                    </div>
+                    <Navigation><h1>All Tasks</h1></Navigation>
                     <div className="taskListAndAddTaskContainer">
                         <TaskList
                             tasks={tasks}
