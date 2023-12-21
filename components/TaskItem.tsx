@@ -14,7 +14,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onComplete, onClick  }) => {
     return (
         <div className="taskItem" onClick={() => onClick(task.id)}>
             <div className="checkboxWrapper">
-                <InputCheck task={task} onComplete={onComplete}/>
+                <InputCheck task={task} onComplete={onComplete} type="md"/>
             </div>
 
             <div className="taskTitle">
@@ -37,7 +37,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onComplete, onClick  }) => {
                                         color: task.date && isDateNow(task.date) ? "#cc2626" : "#c2c2c2",
                                         fontWeight: task.date && isDateNow(task.date) ? "bold" : "normal"
                                     }}
-                                >{task.date}</p>
+                                >{task.date && isDateNow(task.date) ? "Today" : task.date}</p>
                             </div>
                         )}
                         {task.note && (

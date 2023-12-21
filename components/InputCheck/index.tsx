@@ -5,9 +5,10 @@ import {SVGComponent} from "../ui/SVG";
 interface InputCheckProps {
     task: Task;
     onComplete: (value: Task) => void;
+    type?: "sm" | "md" | "lg";
 }
 
-const InputCheck: React.FC<InputCheckProps> = ({ task, onComplete }) => {
+const InputCheck: React.FC<InputCheckProps> = ({ task, onComplete, type }) => {
 
     const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
         e.stopPropagation();
@@ -26,7 +27,7 @@ const InputCheck: React.FC<InputCheckProps> = ({ task, onComplete }) => {
                 checked={task.completed}
                 onChange={handleChange}
                 onClick={handleClick}
-                className="checkbox md"
+                className={`checkbox ${type}`}
             />
         </div>
     );

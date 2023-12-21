@@ -47,7 +47,7 @@ const TaskDrawer: React.FC<TaskDrawerProps> = ({ task, isOpen, onClose, onComple
             </div>
 
             <div className="taskHeader">
-                <InputCheck task={task} onComplete={onComplete}/>
+                <InputCheck task={task} onComplete={onComplete} type="lg"/>
                 <input
                     type="text"
                     value={task.title}
