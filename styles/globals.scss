@@ -1,7 +1,6 @@
 @import 'utils/normalize';
 @import "utils/base";
 
-
 @import "utils/variables";
 /* UI */
 @import "ui/Container";
@@ -12,6 +11,7 @@
 @import "components/TaskDrawer";
 @import "components/TaskItem";
 @import "components/TaskList";
+@import "components/Inputs";
 
 
 
@@ -54,7 +54,6 @@ input[type="checkbox"] {
   padding: 0.55rem;
   border: 1px solid rgba(0, 0, 0, 0.42);
   border-radius: 50%;
-  margin-right: 0.5rem;
   cursor: pointer;
   vertical-align: middle;
   background-repeat: no-repeat;

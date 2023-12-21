@@ -6,7 +6,7 @@ type TaskListProps = {
     tasks: TaskCategories;
     onTaskClick: (taskId: string) => void;
     onUpdateTask: (task: Task, newCategory? : keyof TaskCategories) => void;
-    onComplete: (taskId: Task) => void;
+    onComplete: (task: Task) => void;
 };
 
 const TaskList: React.FC<TaskListProps> = ({ tasks, onUpdateTask, onTaskClick, onComplete }) => {

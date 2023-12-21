@@ -2,6 +2,7 @@ import React from 'react';
 import type { Task } from '../types';
 import {SVGComponent} from "./ui/SVG";
 import {formatDate, isDateNow} from "../utils";
+import InputCheck from "./InputCheck";
 
 type TaskItemProps = {
     task: Task;
@@ -13,16 +14,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onComplete, onClick  }) => {
     return (
         <div className="taskItem" onClick={() => onClick(task.id)}>
             <div className="checkboxWrapper">
-                <input
-                    id={`task-${task.id}`}
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={(e) => {
-                        e.preventDefault()
-                        onComplete(task)
-                    }}
-                    className={"checkbox md"}
-                />
+                <InputCheck task={task} onComplete={onComplete}/>
             </div>
 
             <div className="taskTitle">

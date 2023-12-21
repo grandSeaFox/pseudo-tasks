@@ -1,8 +1,9 @@
 import React from 'react';
 import type {Repeat, Task, TaskCategories} from '../types';
 import {SVGComponent} from "./ui/SVG";
-import RepeatSelect from "./SelectInput";
+import RepeatSelect from "./InputSelect";
 import {formatDate} from "../utils";
+import InputCheck from "./InputCheck";
 
 type TaskDrawerProps = {
     task: Task | null;
@@ -46,12 +47,7 @@ const TaskDrawer: React.FC<TaskDrawerProps> = ({ task, isOpen, onClose, onComple
             </div>
 
             <div className="taskHeader">
-                <input
-                    type="checkbox"
-                    checked={task.completed}
-                    onChange={() => onComplete(task)}
-                    className={"checkbox lg"}
-                />
+                <InputCheck task={task} onComplete={onComplete}/>
                 <input
                     type="text"
                     value={task.title}

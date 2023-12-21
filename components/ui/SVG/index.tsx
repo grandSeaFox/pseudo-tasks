@@ -10,9 +10,10 @@ export interface SVGComponentProps {
     strokeWidth?: number;
     size?: string | number;
     className?: string;
+    style?: Object;
 }
 
-export const SVGComponent: React.FC<SVGComponentProps> = ({ icon, color, strokeWidth, size, className }) => {
+export const SVGComponent: React.FC<SVGComponentProps> = ({ icon, color, strokeWidth, size, className, style }) => {
     const svgElement = AVAILABLE_SVGS[icon as AvailableIcons];
     if (!objectKeys(AVAILABLE_SVGS).includes(icon as AvailableIcons))
         return (
@@ -49,7 +50,7 @@ export const SVGComponent: React.FC<SVGComponentProps> = ({ icon, color, strokeW
     );
 
     return (
-        <i style={{ pointerEvents: 'none', display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <i style={{ pointerEvents: 'none', display: "flex", alignItems: "center", justifyContent: "center", ...style }}>
             {modifiedSvg}
         </i>
     );

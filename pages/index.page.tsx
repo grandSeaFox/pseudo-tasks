@@ -24,7 +24,8 @@ const Home: NextPage = () => {
 
         if (taskToComplete) {
             const updatedTask = { ...taskToComplete, completed: !taskToComplete.completed };
-            updateTask(updatedTask, task.completed ? 'todo' : 'completed');
+            const newCategory = updatedTask.completed ? 'completed' : 'todo';
+            updateTask(updatedTask, newCategory);
         }
     };
 

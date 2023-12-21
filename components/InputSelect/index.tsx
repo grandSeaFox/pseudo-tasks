@@ -3,7 +3,7 @@ import {Repeat} from "../../types";
 
 interface RepeatSelectProps {
     selectedValue?: Repeat | 'none';
-    onChange: (value?: Repeat) => void;  // Update the type to allow undefined
+    onChange: (value?: Repeat) => void;
 }
 
 const RepeatSelect: React.FC<RepeatSelectProps> = ({ selectedValue, onChange }) => {
