@@ -6,6 +6,7 @@ import AddTask from "../components/AddTask";
 import TaskDrawer from "../components/TaskDrawer";
 import {useTaskManager} from "../hooks/useTaskManager";
 import Navigation from "../components/ui/Navigation";
+import {Task} from "../types";
 
 const Home: NextPage = () => {
     const { tasks, addTask, updateTask, deleteTask } = useTaskManager();
@@ -17,10 +18,20 @@ const Home: NextPage = () => {
         setIsClient(true);
     }, []);
 
+    const handleComplete = (task: Task) => {
+        const allTasks = tasks.todo.concat(tasks.completed);
+        const taskToComplete = allTasks.find(todoTask => todoTask.id === task.id);
+
+        if (taskToComplete) {
+            const updatedTask = { ...taskToComplete, completed: !taskToComplete.completed };
+            updateTask(updatedTask, task.completed ? 'todo' : 'completed');
+        }
+    };
+
     const selectedTask = useMemo(() => {
         if (!selectedTaskId) return null;
         return (
-            tasks.today.concat(tasks.tomorrow, tasks.upcoming, tasks.toAssign)
+            tasks.todo.concat(tasks.completed)
                 .find(task => task.id === selectedTaskId) || null
         );
     }, [selectedTaskId, tasks]);
@@ -44,11 +55,14 @@ const Home: NextPage = () => {
                             onUpdateTask={updateTask}
                             onTaskClick={openDrawer}
                             onTaskDelete={deleteTask}
+                            onComplete={handleComplete}
                         />
                         <TaskDrawer
                             task={selectedTask}
+                            onComplete={handleComplete}
                             isOpen={drawerOpen}
                             onClose={closeDrawer}
+                            updateTask={updateTask}
                         />
                     </div>
                     <AddTask onAddTask={addTask} />

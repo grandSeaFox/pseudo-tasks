@@ -1,22 +1,48 @@
 .taskDrawer {
   position: fixed;
+
   bottom: 0;
   z-index: 0;
   margin-top: auto;
-  min-width: 570px;
+  width: 570px;
   height: 0;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   transform: translateY(110%);
   transition: transform 0.4s ease-in-out, height 0.1s ease-in;
   padding: 20px;
-  -webkit-box-shadow: 0px -5px 6px -4px rgba(0,0,0,0.30);
-  -moz-box-shadow: 0px -5px 6px -4px rgba(0,0,0,0.30);
-  box-shadow: 0px -7px 6px -4px rgba(0, 0, 0, 0.30);
 }
 
 [data-drawer-collapse="false"] {
-  min-height: 30vh;
+  height: 35vh;
   transform: translateY(0);
-  background-color: #f0f0f0;
+  border-top: 2px solid #797979;
+  border-right: 2px solid #797979;
+  border-left: 2px solid #797979;
+  .taskHeader {
+    height: 3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    button {
+      border: none;
+      background-color: transparent;
+      margin-right: 1rem;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    input[type="text"] {
+      font-size: 1.3rem;
+      border: none;
+    }
+    input:focus{
+      outline: none;
+    }
+  }
+  .taskDetails {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+  }
 }

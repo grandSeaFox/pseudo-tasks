@@ -7,19 +7,10 @@ type TaskListProps = {
     onTaskClick: (taskId: string) => void;
     onUpdateTask: (task: Task, newCategory? : keyof TaskCategories) => void;
     onTaskDelete : (taskId: string) => void;
+    onComplete: (taskId: Task) => void;
 };
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, onUpdateTask, onTaskClick, onTaskDelete }) => {
-
-    const handleComplete = (taskId: string) => {
-        const allTasks = tasks.today.concat(tasks.tomorrow, tasks.upcoming, tasks.toAssign);
-        const taskToComplete = allTasks.find(task => task.id === taskId);
-
-        if (taskToComplete) {
-            const updatedTask = { ...taskToComplete, completed: !taskToComplete.completed };
-            onUpdateTask(updatedTask);
-        }
-    };
+const TaskList: React.FC<TaskListProps> = ({ tasks, onUpdateTask, onTaskClick, onTaskDelete, onComplete }) => {
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, taskId: string) => {
         e.dataTransfer.setData("text/plain", taskId);
@@ -50,38 +41,37 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onUpdateTask, onTaskClick, o
         e.currentTarget.classList.add("dragOver");
     };
 
-    const renderCategorySection = (category: keyof TaskCategories, title: string) => (
-        <div
-            className={"category"}
-            onDrop={e => handleDrop(e, category)}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-        >
-            <h2>{title}</h2>
-            {tasks[category].map(task => (
-                <div
-                    key={task.id}
-                    draggable
-                    onDragStart={e => handleDragStart(e, task.id)}
-                    className={"taskItem"}
-                >
-                    <TaskItem
-                        task={task}
-                        onClick={() => onTaskClick(task.id)}
-                        onDelete={() => onTaskDelete(task.id)}
-                        onComplete={handleComplete}
-                    />
-                </div>
-            ))}
-        </div>
-    );
+    const renderCategorySection = (category: keyof TaskCategories, title: string) => {
+       return (
+           <div
+               className={"category"}
+               onDrop={e => handleDrop(e, category)}
+               onDragOver={handleDragOver}
+               onDragLeave={handleDragLeave}
+           >
+               <h2>{title}</h2>
+               {tasks[category].map(task => (
+                   <div
+                       key={task.id}
+                       draggable
+                       onDragStart={e => handleDragStart(e, task.id)}
+                   >
+                       <TaskItem
+                           task={task}
+                           onClick={() => onTaskClick(task.id)}
+                           onDelete={() => onTaskDelete(task.id)}
+                           onComplete={onComplete}
+                       />
+                   </div>
+               ))}
+           </div>
+       );
+    }
 
     return (
         <div className={"taskList"}>
-            {renderCategorySection('today', 'Today')}
-            {renderCategorySection('tomorrow', 'Tomorrow')}
-            {renderCategorySection('upcoming', 'Upcoming')}
-            {renderCategorySection('toAssign', 'To Assign')}
+            {renderCategorySection('todo', 'To-do')}
+            {renderCategorySection('completed', 'Completed')}
         </div>
     );
 };

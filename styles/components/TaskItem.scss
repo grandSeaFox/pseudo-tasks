@@ -1,8 +1,34 @@
 .taskItem {
-  width: 100%;
   display: flex;
-  align-items: center;
-  margin: 0 0.5rem 0 0.15rem;
+  width: 100%;
+  padding: 0.25rem 0.5rem 0.25rem 0.15rem;
+  .checkboxWrapper {
+    display: flex;
+    align-items: center;
+  }
+  .taskTitle {
+    display: block;
+    p {
+      font-size: 1.3rem;
+      margin: 0.5rem 0;
+    }
+  }
+  .taskInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    .taskInfoDetails {
+      display: flex;
+      flex-direction: row;
+      font-size: 10px;
+      color: #c2c2c2;
+      gap: 5px;
+      i > svg > path, i > svg > g {
+        fill: #888;
+      }
+
+    }
+  }
 
   button {
     cursor: pointer;
@@ -35,30 +61,6 @@
   }
 
 
-  .checkboxWrapper {
-    display: flex;
-    align-items: center;
-  }
-  input[type="checkbox"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    padding: 0.55rem;
-    border: 1px solid rgba(0, 0, 0, 0.42);
-    border-radius: 50%;
-    margin-right: 0.5rem;
-    cursor: pointer;
-    vertical-align: middle;
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
-  input[type="checkbox"]:hover {
-    border: 1px solid #000;
-  }
-  input[type="checkbox"]:checked {
-    background-color: lightblue;
-  }
 
 
   .completed {

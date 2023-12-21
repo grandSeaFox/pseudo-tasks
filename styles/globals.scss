@@ -24,6 +24,59 @@ body {
   Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+input[type='text'], input[type="date"], textarea, select {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 17px;
+  flex-grow: 1;
+  &:focus {
+    outline: 1px solid  rgba(0, 0, 0, 0.42);
+  }
+}
+textarea {
+  width: 100%;
+  min-height: 6rem;
+  height: 6rem;
+  max-height: 8rem;
+  border: 1px solid #ccc;
+  border-radius: 17px;
+  flex-grow: 1;
+  &:focus {
+    outline: 1px solid rgba(0, 0, 0, 0.42);
+  }
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0.55rem;
+  border: 1px solid rgba(0, 0, 0, 0.42);
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  vertical-align: middle;
+  background-repeat: no-repeat;
+  background-position: center;
+  &.sm {
+    padding: 0.5rem;
+  }
+  &.md {
+    padding: 0.75rem;
+  }
+  &.lg {
+    padding: 1rem;
+  }
+}
+input[type="checkbox"]:hover {
+  border: 1px solid #000;
+}
+input[type="checkbox"]:checked {
+  background-color: lightblue;
+}
+
+
 .drawer {
   position: fixed;
   top: 0;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {SVGComponent} from "./ui/SVG";
 
 type AddTaskProps = {
-    onAddTask: (title: string) => void;
+    onAddTask: (title: string, ) => void;
 };
 
 const AddTask: React.FC<AddTaskProps> = ({ onAddTask }) => {
