@@ -3,6 +3,7 @@ import React, {ReactNode, useEffect, useState} from 'react';
 import {useTheme} from "../ThemeProvider";
 import {AvailableIcons} from "../SVG/AvailableSvgs";
 import {SVGComponent} from "../SVG";
+import RepeatSelect from "../../InputSelect";
 
 
 interface NavigationBarProps {
@@ -24,14 +25,27 @@ const NavigationBar = ({children}: NavigationBarProps) => {
 
     return (
         <div className="navigation">
+            <div className="buttonsLeft">
+                <RepeatSelect onChange={() => {}}/>
+            </div>
             {children}
-            <button
-                onClick={() => {
-                    setDarkMode(!darkMode);
-                }}
-            >
-                <SVGComponent icon={themeButton.icon}/>
-            </button>
+            <div className="buttonsRight">
+                <button
+                    onClick={() => {
+                        setDarkMode(!darkMode);
+                    }}
+                >
+                    <SVGComponent icon="archive"/>
+                </button>
+                <button
+                    onClick={() => {
+                        setDarkMode(!darkMode);
+                    }}
+                >
+                    <SVGComponent icon={themeButton.icon}/>
+                </button>
+            </div>
+
         </div>
     );
 };
