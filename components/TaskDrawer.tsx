@@ -10,9 +10,10 @@ type TaskDrawerProps = {
     onClose: () => void;
     onComplete: (task: Task) => void;
     updateTask: (updatedTask: Task, newCategory?: keyof TaskCategories) => void;
+    onDelete: (taskId: string) => void;
 };
 
-const TaskDrawer: React.FC<TaskDrawerProps> = ({ task, isOpen, onClose, onComplete, updateTask }) => {
+const TaskDrawer: React.FC<TaskDrawerProps> = ({ task, isOpen, onClose, onComplete, updateTask, onDelete }) => {
     if (!isOpen || !task) return null;
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,6 +42,7 @@ const TaskDrawer: React.FC<TaskDrawerProps> = ({ task, isOpen, onClose, onComple
             <div className="taskHeader">
                 <button onClick={onClose}><SVGComponent icon={"arrowSmallLeft"}/></button>
                 <h3>Pseudo-tasks</h3>
+                <button onClick={() => onDelete(task.id)} style={{marginLeft: "auto"}}><SVGComponent icon={'trash'}/></button>
             </div>
 
             <div className="taskHeader">

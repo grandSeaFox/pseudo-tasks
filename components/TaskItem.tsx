@@ -7,10 +7,9 @@ type TaskItemProps = {
     task: Task;
     onComplete: (task: Task) => void;
     onClick: (taskId: string) => void;
-    onDelete: (taskId: string) => void;
 };
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, onComplete, onClick, onDelete  }) => {
+const TaskItem: React.FC<TaskItemProps> = ({ task, onComplete, onClick  }) => {
     return (
         <div className="taskItem" onClick={() => onClick(task.id)}>
             <div className="checkboxWrapper">

@@ -59,7 +59,6 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onUpdateTask, onTaskClick, o
                        <TaskItem
                            task={task}
                            onClick={() => onTaskClick(task.id)}
-                           onDelete={() => onTaskDelete(task.id)}
                            onComplete={onComplete}
                        />
                    </div>

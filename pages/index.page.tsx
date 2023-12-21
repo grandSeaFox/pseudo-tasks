@@ -59,10 +59,11 @@ const Home: NextPage = () => {
                         />
                         <TaskDrawer
                             task={selectedTask}
-                            onComplete={handleComplete}
                             isOpen={drawerOpen}
                             onClose={closeDrawer}
                             updateTask={updateTask}
+                            onDelete={deleteTask}
+                            onComplete={handleComplete}
                         />
                     </div>
                     <AddTask onAddTask={addTask} />
