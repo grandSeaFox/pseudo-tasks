@@ -9,7 +9,7 @@
   .taskTitle {
     display: block;
     p {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       margin: 0.5rem 0;
     }
   }
@@ -21,12 +21,14 @@
       display: flex;
       flex-direction: row;
       font-size: 10px;
-      color: #c2c2c2;
       gap: 5px;
       i > svg > path, i > svg > g {
         fill: #888;
       }
-
+      p {
+        font-size: 10px;
+        color: #c2c2c2;
+      }
     }
   }
 
