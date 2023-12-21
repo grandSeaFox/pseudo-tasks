@@ -6,11 +6,10 @@ type TaskListProps = {
     tasks: TaskCategories;
     onTaskClick: (taskId: string) => void;
     onUpdateTask: (task: Task, newCategory? : keyof TaskCategories) => void;
-    onTaskDelete : (taskId: string) => void;
     onComplete: (taskId: Task) => void;
 };
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, onUpdateTask, onTaskClick, onTaskDelete, onComplete }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, onUpdateTask, onTaskClick, onComplete }) => {
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, taskId: string) => {
         e.dataTransfer.setData("text/plain", taskId);
