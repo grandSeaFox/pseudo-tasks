@@ -1,5 +1,5 @@
 import React from 'react';
-import type {Repeat, Task, TaskCategories} from '../types';
+import type {Repeat, Task} from '../types';
 import {SVGComponent} from "./ui/SVG";
 import RepeatSelect from "./InputSelect";
 import {formatDate} from "../utils";
@@ -9,12 +9,13 @@ type TaskDrawerProps = {
     task: Task | null;
     isOpen: boolean;
     onClose: () => void;
-    onComplete: (task: Task) => void;
-    updateTask: (updatedTask: Task, newCategory?: keyof TaskCategories) => void;
+    onComplete: (taskId: string) => void;
+    onArchive: (taskId: string) => void;
+    updateTask: (updatedTask: Task) => void;
     onDelete: (taskId: string) => void;
 };
 
-const TaskDrawer: React.FC<TaskDrawerProps> = ({ task, isOpen, onClose, onComplete, updateTask, onDelete }) => {
+const TaskDrawer: React.FC<TaskDrawerProps> = ({ task, isOpen, onClose, onComplete, onArchive, updateTask, onDelete }) => {
     if (!isOpen || !task) return null;
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,13 +38,18 @@ const TaskDrawer: React.FC<TaskDrawerProps> = ({ task, isOpen, onClose, onComple
             updateTask(updatedTask);
         }
     };
+    const handleArchiving = (taskId: string) => {
+        onClose();
+        return onArchive(taskId)
+    }
 
     return (
         <div className="taskDrawer" data-drawer-collapse={!isOpen}>
             <div className="taskHeader">
                 <button onClick={onClose}><SVGComponent icon={"arrowSmallLeft"}/></button>
                 <h3>Pseudo-tasks</h3>
-                <button onClick={() => onDelete(task.id)} style={{marginLeft: "auto"}}><SVGComponent icon={'trash'}/></button>
+                <button onClick={() => handleArchiving(task.id)} style={{marginLeft: "auto"}}><SVGComponent icon={'archive'}/></button>
+                <button onClick={() => onDelete(task.id)}><SVGComponent icon={'trash'}/></button>
             </div>
 
             <div className="taskHeader">

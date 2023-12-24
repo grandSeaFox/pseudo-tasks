@@ -1,18 +1,12 @@
 import { useState, useEffect } from 'react';
-import {Repeat, Task, TaskCategories} from '../types';
-import {objectKeys} from "../utils";
+import { Repeat, Task } from '../types';
 
 export const useTaskManager = () => {
-    const createDefaultTaskCategories = <T extends TaskCategories>(): T => {
-    const keys = objectKeys({ todo: [], completed: [] }) as Array<keyof T>;
-    const defaultObject = {} as T;
-    keys.forEach((key) => {
-        defaultObject[key] = [] as T[keyof T];
-    });
-    return defaultObject;
-};
+    const createDefaultTaskCategories = (): Array<Task> => {
+        return [];
+    };
 
-    const getTasksFromLocalStorage = (): TaskCategories => {
+    const getTasksFromLocalStorage = (): Array<Task> => {
         if (typeof window !== 'undefined') {
             const savedTasks = localStorage.getItem('tasks');
             return savedTasks ? JSON.parse(savedTasks) : createDefaultTaskCategories();
@@ -20,7 +14,7 @@ export const useTaskManager = () => {
         return createDefaultTaskCategories();
     };
 
-    const [tasks, setTasks] = useState<TaskCategories>(getTasksFromLocalStorage());
+    const [tasks, setTasks] = useState<Array<Task>>(getTasksFromLocalStorage());
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -28,50 +22,46 @@ export const useTaskManager = () => {
         }
     }, [tasks]);
 
-    const addTask = (title: string, repeat?: Repeat, date?: string, note?: string) => {
+    const addTask = (title: string, projectId: string, repeat?: Repeat, date?: string, note?: string) => {
         if (!title.trim()) return;
 
         const newTask: Task = {
             id: Date.now().toString(),
             title: title.trim(),
-            completed: false,
+            originalProjectId: projectId,
+            projectId,
             repeat,
+            completed: false,
             date,
             note
         };
 
-        setTasks(prevTasks => {
-            const categoryTasks = prevTasks['todo'] ?? [];
-            const updatedCategoryTasks = [...categoryTasks, newTask];
-            return { ...prevTasks, ['todo']: updatedCategoryTasks };
-        });
+        setTasks(prevTasks => [...prevTasks, newTask]);
     };
-    const updateTask = (updatedTask: Task, newCategory?: keyof TaskCategories) => {
-        setTasks(prevTasks => {
-            const newTasks: TaskCategories = { ...prevTasks };
-            objectKeys(newTasks).forEach(category => {
-                newTasks[category as keyof TaskCategories] = newTasks[category as keyof TaskCategories].filter(task => task.id !== updatedTask.id);
-            });
 
-            if (newCategory) {
-                newTasks[newCategory] = [...newTasks[newCategory], updatedTask];
-            } else {
-                const originalCategory = objectKeys(prevTasks).find(category => prevTasks[category as keyof TaskCategories].some(task => task.id === updatedTask.id)) as keyof TaskCategories;
-                newTasks[originalCategory] = [...newTasks[originalCategory], updatedTask];
-            }
-
-            return newTasks;
-        });
+    const updateTask = (updatedTask: Task) => {
+        setTasks(prevTasks => prevTasks.map(task => task.id === updatedTask.id ? updatedTask : task));
     };
 
     const deleteTask = (taskId: string) => {
-        setTasks(prevTasks => {
-            const newTasks = { ...prevTasks };
-            (objectKeys(newTasks) as Array<keyof TaskCategories>).forEach(key => {
-                newTasks[key] = newTasks[key].filter(task => task.id !== taskId);
-            });
-            return newTasks;
-        });
+        setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
+    };
+    const handleComplete = (taskId: string) => {
+        setTasks(prevTasks => prevTasks.map(task =>
+            task.id === taskId ? { ...task, completed: !task.completed } : task
+        ));
+    };
+    const handleArchiving = (taskId: string) => {
+        setTasks(prevTasks => prevTasks.map(task => {
+            if (task.id === taskId) {
+                if (task.archived) {
+                    return { ...task, archived: false, projectId: task.originalProjectId };
+                } else {
+                    return { ...task, archived: true, originalProjectId: task.projectId, projectId: 'archived' };
+                }
+            }
+            return task;
+        }));
     };
 
     return {
@@ -79,5 +69,7 @@ export const useTaskManager = () => {
         addTask,
         updateTask,
         deleteTask,
+        handleComplete,
+        handleArchiving
     };
 };

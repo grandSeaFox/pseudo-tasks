@@ -1,73 +1,106 @@
-.taskItem {
+.taskItemWrapper {
   display: flex;
   width: 100%;
-  padding: 0.4rem;
-  .checkboxWrapper {
+  overflow: hidden;
+  .taskItem {
     display: flex;
-    align-items: center;
-    margin-right: 0.5rem;
-  }
-  .taskTitle {
-    display: block;
-    p {
-      font-size: 1.2rem;
-      margin: 0.25rem 0;
+    width: 100%;
+    padding: var(--unit-3) 0 var(--unit-3) var(--unit-4);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+
+    .checkboxWrapper {
+      display: flex;
+      align-items: center;
+      margin-right: 0.5rem;
     }
-  }
-  .taskInfo {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    .taskInfoDetails {
+    .taskTitle {
+      display: block;
+      p {
+        font-size: 1.2rem;
+        margin: 0.25rem 0;
+      }
+    }
+    .taskInfo {
       display: flex;
       flex-direction: row;
-      font-size: 10px;
-      gap: 5px;
-      i > svg > path, i > svg > g {
-        fill: #888;
-      }
-      p {
+      gap: 8px;
+      .taskInfoDetails {
+        display: flex;
+        flex-direction: row;
         font-size: 10px;
-        color: #c2c2c2;
+        gap: 5px;
+        i > svg > path, i > svg > g {
+          fill: #888;
+        }
+        p {
+          font-size: 10px;
+          color: #c2c2c2;
+        }
       }
     }
-  }
 
-  button {
-    cursor: pointer;
-    border: 0;
-    background-color: transparent;
-    margin-left: auto;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    i > svg > path {
-      fill: #888;
-      &:hover {
-        fill: #000;
-      }
-    }
-  }
-
-  p {
-    font-size: 18px;
-    color: #888;
-  }
-  p:hover {
-    color: #000;
-    cursor: pointer;
-  }
-  &:hover {
-    cursor: grab;
     button {
-      opacity: 1;
+      cursor: pointer;
+      border: 0;
+      background-color: transparent;
+      margin-left: auto;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      i > svg > path {
+        fill: #888;
+        &:hover {
+          fill: #000;
+        }
+      }
+    }
+
+    p {
+      font-size: 18px;
+      color: #888;
+    }
+    p:hover {
+      color: #000;
+      cursor: pointer;
+    }
+    &:hover {
+      cursor: grab;
+      button {
+        opacity: 1;
+      }
+    }
+
+    &:hover {
+      cursor: grab;
+
+      button {
+        opacity: 1;
+      }
+    }
+
+    &.dragging {
+      cursor: grabbing;
+      opacity: 0.8;
+      transform: scale(1.01);
+      border: 2px dashed #ccc;
+      background-color: #f8f8f8;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: #d1d1d1;
     }
   }
+  .drag-left {
+    background-color: #f0e68c;
+  }
 
+  .drag-right {
+    margin-left: auto;
+    background-color: #ff6347;
+  }
 
-
-
-  .completed {
-    text-decoration: line-through;
-    color: #d1d1d1;
+  .dragIcon {
+    padding: var(--unit-4)
   }
 }
+

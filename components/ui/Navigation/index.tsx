@@ -7,10 +7,11 @@ import RepeatSelect from "../../InputSelect";
 
 
 interface NavigationBarProps {
+    toggleArchived: () => void;
     children: ReactNode
 }
 
-const NavigationBar = ({children}: NavigationBarProps) => {
+const NavigationBar = ({toggleArchived, children}: NavigationBarProps) => {
     const darkMode = useReadLocalStorage('darkMode');
     const { setDarkMode } = useTheme();
     const [themeButton, setThemeButton] = useState<{ icon: AvailableIcons; color: string }>({
@@ -31,9 +32,7 @@ const NavigationBar = ({children}: NavigationBarProps) => {
             {children}
             <div className="buttonsRight">
                 <button
-                    onClick={() => {
-                        setDarkMode(!darkMode);
-                    }}
+                    onClick={toggleArchived}
                 >
                     <SVGComponent icon="archive"/>
                 </button>

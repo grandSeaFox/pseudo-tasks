@@ -4,7 +4,7 @@ import {SVGComponent} from "../ui/SVG";
 
 interface InputCheckProps {
     task: Task;
-    onComplete: (value: Task) => void;
+    onComplete: (taskId: string) => void;
     type?: "sm" | "md" | "lg";
 }
 
@@ -14,8 +14,8 @@ const InputCheck: React.FC<InputCheckProps> = ({ task, onComplete, type }) => {
         e.stopPropagation();
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onComplete({ ...task, completed: e.target.checked });
+    const handleChange = () => {
+        onComplete(task.id);
     };
 
     return (

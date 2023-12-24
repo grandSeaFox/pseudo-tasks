@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import {SVGComponent} from "./ui/SVG";
 
 type AddTaskProps = {
-    onAddTask: (title: string, ) => void;
+    projectId: string;
+    onAddTask: (title: string, projectId: string ) => void;
 };
 
-const AddTask: React.FC<AddTaskProps> = ({ onAddTask }) => {
+const AddTask: React.FC<AddTaskProps> = ({ projectId, onAddTask }) => {
     const [newTaskTitle, setNewTaskTitle] = useState('');
 
     const handleAddClick = () => {
         if (newTaskTitle.trim() === '') return;
-        onAddTask(newTaskTitle);
+        onAddTask(newTaskTitle, projectId);
         setNewTaskTitle('');
     };
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {

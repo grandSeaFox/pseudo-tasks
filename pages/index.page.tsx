@@ -6,36 +6,41 @@ import AddTask from "../components/AddTask";
 import TaskDrawer from "../components/TaskDrawer";
 import {useTaskManager} from "../hooks/useTaskManager";
 import Navigation from "../components/ui/Navigation";
-import {Task} from "../types";
+import {Project} from "../types";
 
 const Home: NextPage = () => {
-    const { tasks, addTask, updateTask, deleteTask } = useTaskManager();
+    const [isClient, setIsClient] = useState(false);
+    const { tasks, addTask, updateTask, deleteTask, handleComplete, handleArchiving } = useTaskManager();
+    const [showArchived, setShowArchived] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
-    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
     }, []);
 
-    const handleComplete = (task: Task) => {
-        const allTasks = tasks.todo.concat(tasks.completed);
-        const taskToComplete = allTasks.find(todoTask => todoTask.id === task.id);
-
-        if (taskToComplete) {
-            const updatedTask = { ...taskToComplete, completed: !taskToComplete.completed };
-            const newCategory = updatedTask.completed ? 'completed' : 'todo';
-            updateTask(updatedTask, newCategory);
+    const selectedProject: Project = useMemo(() => {
+        return {
+            id: 'project-1',
+            title: 'Pseudo Tasks',
         }
-    };
+    }, [])
+
+    const filteredTasks = useMemo(() => {
+        if (showArchived) {
+            return tasks.filter(task => task.projectId === 'archived');
+        } else {
+            return tasks.filter(task => task.projectId === selectedProject.id);
+        }
+    }, [tasks, selectedProject, showArchived]);
 
     const selectedTask = useMemo(() => {
         if (!selectedTaskId) return null;
         return (
-            tasks.todo.concat(tasks.completed)
-                .find(task => task.id === selectedTaskId) || null
+            tasks.find(task => task.id === selectedTaskId) || null
         );
     }, [selectedTaskId, tasks]);
+
     const openDrawer = (taskId: string) => {
         setSelectedTaskId(taskId);
         setDrawerOpen(true);
@@ -45,17 +50,24 @@ const Home: NextPage = () => {
         setDrawerOpen(false);
     };
 
+    const toggleArchivedView = () => {
+        setShowArchived(!showArchived);
+        closeDrawer();
+    };
+
     return (
         <div className="mainLayoutContainer">
             <Container>
                 {!isClient && <div>Loading...</div> || <>
-                    <Navigation><h1>All Tasks</h1></Navigation>
+                    <Navigation toggleArchived={toggleArchivedView}><h1>{selectedProject.title}</h1></Navigation>
                     <div className="taskListAndAddTaskContainer">
                         <TaskList
-                            tasks={tasks}
-                            onUpdateTask={updateTask}
+                            tasks={filteredTasks}
                             onTaskClick={openDrawer}
                             onComplete={handleComplete}
+                            onDelete={deleteTask}
+                            onArchive={handleArchiving}
+                            isArchivedView={showArchived}
                         />
                         <TaskDrawer
                             task={selectedTask}
@@ -64,9 +76,10 @@ const Home: NextPage = () => {
                             updateTask={updateTask}
                             onDelete={deleteTask}
                             onComplete={handleComplete}
+                            onArchive={handleArchiving}
                         />
                     </div>
-                    <AddTask onAddTask={addTask} />
+                    <AddTask projectId={selectedProject.id} onAddTask={addTask} />
                 </>}
 
             </Container>
