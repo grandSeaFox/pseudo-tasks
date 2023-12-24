@@ -33,11 +33,13 @@ export const useTaskManager = () => {
             repeat,
             completed: false,
             date,
-            note
+            note,
+            order: tasks.length
         };
 
         setTasks(prevTasks => [...prevTasks, newTask]);
     };
+
 
     const updateTask = (updatedTask: Task) => {
         setTasks(prevTasks => prevTasks.map(task => task.id === updatedTask.id ? updatedTask : task));
@@ -63,6 +65,10 @@ export const useTaskManager = () => {
             return task;
         }));
     };
+    const updateTaskOrder = (newOrder: Task[]) => {
+        const updatedTasks = newOrder.map((task, index) => ({ ...task, order: index }));
+        setTasks(updatedTasks);
+    };
 
     return {
         tasks,
@@ -70,6 +76,7 @@ export const useTaskManager = () => {
         updateTask,
         deleteTask,
         handleComplete,
-        handleArchiving
+        handleArchiving,
+        updateTaskOrder
     };
 };

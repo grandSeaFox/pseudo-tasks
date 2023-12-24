@@ -11,6 +11,7 @@ export type Task = {
     completed: boolean;
     originalProjectId: string;
     projectId: string;
+    order: number;
     favorite?: boolean
     date?: string;
     repeat?: Repeat;

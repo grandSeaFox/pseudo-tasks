@@ -10,7 +10,7 @@ import {Project} from "../types";
 
 const Home: NextPage = () => {
     const [isClient, setIsClient] = useState(false);
-    const { tasks, addTask, updateTask, deleteTask, handleComplete, handleArchiving } = useTaskManager();
+    const { tasks, addTask, updateTask, deleteTask, handleComplete, handleArchiving, updateTaskOrder } = useTaskManager();
     const [showArchived, setShowArchived] = useState(false);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
@@ -68,6 +68,7 @@ const Home: NextPage = () => {
                             onDelete={deleteTask}
                             onArchive={handleArchiving}
                             isArchivedView={showArchived}
+                            onUpdateTasksOrder={updateTaskOrder}
                         />
                         <TaskDrawer
                             task={selectedTask}

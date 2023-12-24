@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import TaskItem from './TaskItem';
 import type {Task} from '../types';
 import {SVGComponent} from "./ui/SVG";
@@ -9,10 +9,14 @@ type TaskListProps = {
     onComplete: (taskId: string) => void;
     onArchive: (taskId: string) => void;
     onDelete: (taskId: string) => void;
+    onUpdateTasksOrder: (tasks: Task[]) => void;
     isArchivedView?: boolean;
 };
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskClick, onComplete, onArchive, onDelete, isArchivedView }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskClick, onComplete, onArchive, onDelete, onUpdateTasksOrder, isArchivedView }) => {
+    const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+    const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
+
     const uncompletedTasks = useMemo(() => tasks.filter(task => !task.completed), [tasks]);
     const completedTasks = useMemo(() => tasks.filter(task => task.completed), [tasks]);
 
@@ -24,17 +28,54 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskClick, onComplete, onA
         onDelete(taskId);
     };
 
+    const handleDragStart = (index: number) => {
+        setDraggedIndex(index);
+    };
+
+    const handleDragOver = (index: number) => {
+        if (index !== dragOverIndex) {
+            setDragOverIndex(index);
+        }
+    };
+
+    const handleDragEnd = () => {
+        setDragOverIndex(null);
+    };
+
+    const handleDrop = (targetIndex: number) => {
+        setDragOverIndex(null);
+        if (draggedIndex === null) return;
+
+        const newTasks = [...tasks];
+        const [draggedTask] = newTasks.splice(draggedIndex, 1);
+        newTasks.splice(targetIndex, 0, draggedTask);
+
+        onUpdateTasksOrder(newTasks);
+        setDraggedIndex(null);
+    };
+
     const renderCategorySection = (title: string, tasks: Task[], isArchivedView: boolean = false) => (
         <div className={"category"}>
             {!isArchivedView && <h2>{title}</h2>}
-            {tasks.map(task => (
-                <div key={task.id} className="taskItemWrapper">
+            {tasks.map((task, index) => (
+                <div
+                    key={task.id}
+                    className={`${dragOverIndex === index ? 'drag-over' : ''}`}
+                    onDrop={() => handleDrop(index)}
+                    onDragOver={(e) => {
+                        e.preventDefault();
+                        handleDragOver(index);
+                    }}
+                >
                     <TaskItem
                         task={task}
+                        index={index}
                         onClick={() => onTaskClick(task.id)}
                         onComplete={() => onComplete(task.id)}
                         onDragLeft={handleDragLeft}
                         onDragRight={handleDragRight}
+                        onDragStart={() => handleDragStart(index)}
+                        onDragEnd={handleDragEnd}
                     />
                 </div>
             ))}

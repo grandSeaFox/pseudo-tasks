@@ -6,13 +6,16 @@ import InputCheck from "./InputCheck";
 
 type TaskItemProps = {
     task: Task;
+    index: number;
     onClick: (taskId: string) => void;
     onComplete: (taskId: string) => void;
     onDragLeft: (taskId: string) => void;
     onDragRight: (taskId: string) => void;
+    onDragStart: (index: number) => void;
+    onDragEnd: () => void;
 };
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, onClick, onComplete, onDragLeft, onDragRight }) => {
+const TaskItem: React.FC<TaskItemProps> = ({ task, index, onClick, onComplete, onDragLeft, onDragRight, onDragStart, onDragEnd }) => {
     const [initialX, setInitialX] = useState(0);
     const [dragDirection, setDragDirection] = useState('');
     const DRAG_THRESHOLD = 150
@@ -20,6 +23,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onClick, onComplete, onDragLe
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
         setInitialX(e.screenX);
         e.currentTarget.classList.add('dragging');
+        onDragStart(index);
     };
 
     const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
@@ -33,6 +37,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onClick, onComplete, onDragLe
     };
 
     const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+        onDragEnd();
         e.currentTarget.classList.remove('dragging');
         const dragDistance = e.screenX - initialX;
         if (Math.abs(dragDistance) > DRAG_THRESHOLD) {
